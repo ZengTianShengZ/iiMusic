@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:appc="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@+id/webViewProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
+    <WebView
+        android:id="@+id/music_online_webView"
+        android:layout_below="@+id/webViewProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </WebView>
+    <com.example.zts.appbase.view.CircleImageView
+        android:id="@+id/music_online_CircleBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        appc:border_width="2dp"
+        appc:border_color="#fafafa"
+        android:src="@drawable/ic_media_previous"/>
+</RelativeLayout>

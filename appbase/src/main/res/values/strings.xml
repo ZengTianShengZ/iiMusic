@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AppBase</string>
+
+    <string name="str_loading">loading..</string>
+    <string name="str_ok">确定</string>
+    <string name="activity_exit">再按一次退出程序</string>
+
+</resources>

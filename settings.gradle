@@ -1,0 +1,4 @@
+include ':app', ':appbase', ':libraryztsx', ':libraryz', ':coollibrarys'
+project(':libraryztsx').projectDir = new File('libraryzts')
+project(':libraryz').projectDir = new File('library')
+project(':coollibrarys').projectDir = new File('coollibrary')

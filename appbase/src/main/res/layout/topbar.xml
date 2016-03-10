@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.example.zts.appbase.view.Topbar
+        android:id="@+id/mtopbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        app:backgroundz="@color/title_bar_color"
+        app:buttonMode="both"
+        app:leftBackground="@drawable/img_back"
+        app:leftHeight="@dimen/topbar_button_height"
+        app:leftMargin="@dimen/topbar_button_margin"
+        app:leftWidth="@dimen/topbar_button_width"
+        app:rightBackground="@drawable/img_back"
+        app:rightHeight="@dimen/topbar_button_height"
+        app:rightMargin="@dimen/topbar_button_margin"
+        app:rightWidth="@dimen/topbar_button_width"
+        app:titlez="音乐"
+        app:titleTextColorz="#ffffff"
+        app:titleTextSize="@dimen/topbar_title_text_size">
+
+    </com.example.zts.appbase.view.Topbar>
+</RelativeLayout>

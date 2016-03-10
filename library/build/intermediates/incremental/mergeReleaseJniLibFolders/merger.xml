@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="F:\AsProject\MV_demo3\library\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="F:\AsProject\MV_demo3\library\build-types\release\jniLibs"/></dataSet></merger>

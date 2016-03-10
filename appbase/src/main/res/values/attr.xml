@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Topbar">
+        <attr name="backgroundz" format="reference|color" />
+        <attr name="titlez" format="string" />
+        <attr name="titleTextSize" format="dimension" />
+        <attr name="titleTextColorz" format="color" />
+        <attr name="leftText" format="string" />
+        <attr name="leftTextColor" format="reference|color" />
+        <attr name="leftTextSize" format="dimension" />
+        <attr name="leftWidth" format="dimension" />
+        <attr name="leftHeight" format="dimension" />
+        <attr name="leftMargin" format="dimension" />
+        <attr name="leftBackground" format="reference|color" />
+        <attr name="rightText" format="string" />
+        <attr name="rightTextColor" format="reference|color" />
+        <attr name="rightTextSize" format="dimension" />
+        <attr name="rightWidth" format="dimension" />
+        <attr name="rightHeight" format="dimension" />
+        <attr name="rightMargin" format="dimension" />
+        <attr name="rightBackground" format="reference|color" />
+        <!-- 这里 的  buttonMode 其实 更 上面的 name 是一个样的 ， 只不过 代码遍历出来有三个值而已，根据这三个值做相应出来-->
+        <!-- 这个用在下面的布局文件 pp:buttonMode="both" -->
+                    <attr name="buttonMode">
+                        <enum name="both" value="0" />
+                        <enum name="left" value="1" />
+                        <enum name="right" value="2" />
+                    </attr>
+                </declare-styleable>
+
+    <!--  自定义圆形  图标 -->
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+    </declare-styleable>
+
+    <!-- 自定义圆形进度条-->
+        <declare-styleable name="RoundProgressBar">
+            <attr name="roundColor" format="color"/>
+            <attr name="roundProgressColor" format="color"/>
+            <attr name="roundWidth" format="dimension"></attr>
+            <attr name="textColor" format="color" />
+            <attr name="textSize" format="dimension" />
+            <attr name="max" format="integer"></attr>
+            <attr name="textIsDisplayable" format="boolean"></attr>
+            <attr name="style">
+                <enum name="STROKE" value="0"></enum>
+                <enum name="FILL" value="1"></enum>
+            </attr>
+        </declare-styleable>
+
+    <!-- 自定义音频条形图-->
+    <declare-styleable name="MyAudioBar">
+    <attr name="barCount" format="integer"/>
+    <attr name="updateDuration" format="integer"/>
+    <attr name="audioBarColor" format="color"/>
+    </declare-styleable>
+
+    <!-- 自定义音乐底部控件-->
+    <declare-styleable name="MusicBottomBar">
+        <attr name="bottomWidth" format="dimension"/>
+    </declare-styleable>
+
+</resources>
