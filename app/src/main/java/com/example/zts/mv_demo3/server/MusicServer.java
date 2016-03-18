@@ -98,6 +98,9 @@ public class MusicServer extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.i("bugDestory", "unregisterReceiver");
+        mPlayer.stop();
+        unregisterReceiver(mMusicServiceBroadCast);
     }
 
     public void playMusic(String url,int pos){

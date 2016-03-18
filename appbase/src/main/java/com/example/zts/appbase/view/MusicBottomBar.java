@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ public class MusicBottomBar extends RelativeLayout {
 
     private LayoutParams bottomBarParams;
 
+    private LinearLayout bottom_lin_tv;
     private ImageView music_previous, music_pause, music_next;
     private TextView music_tilteTv,music_artistTv;
     private CircleImageView circleImageView;
@@ -41,8 +43,16 @@ public class MusicBottomBar extends RelativeLayout {
     public interface MusicPauseOnClick {
         public void pauseOnClick();
     }*/
+    private CurrentProgressTime currentProgressTime;
+    public interface CurrentProgressTime {
+        public void setCurrentTime(int second);
+    }
+    public void setCurrentProgressTime(CurrentProgressTime currentTime){
+        this.currentProgressTime = currentTime;
+    }
     private LocalMusicButOnClick localMusicButOnClick;
     public interface LocalMusicButOnClick {
+        public void linOnClick();
         public void privateOnClick();
         public void pauseOnClick();
         public void nextOnClick();
@@ -69,6 +79,7 @@ public class MusicBottomBar extends RelativeLayout {
 
 
         View view = View.inflate(context, R.layout.music_bottom_bar, null);
+        bottom_lin_tv = (LinearLayout) view.findViewById(R.id.bottom_lin_tv);
         music_tilteTv = (TextView) view.findViewById(R.id.bottom_music_tilteTv);
         music_artistTv = (TextView) view.findViewById(R.id.bottom_music_artistTv);
         music_previous = (ImageView) view.findViewById(R.id.bottom_music_previous);
@@ -84,6 +95,14 @@ public class MusicBottomBar extends RelativeLayout {
         // 加载的 xml 布局 要 放在 父容器 里面 并 addview 才能显示
         addView(view, bottomBarParams);
 
+        bottom_lin_tv.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (localMusicButOnClick != null) {
+                    localMusicButOnClick.linOnClick();
+                }
+            }
+        });
         music_previous.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -171,6 +190,9 @@ public class MusicBottomBar extends RelativeLayout {
 
             if (timerTaskStatic) {
                 progressNum = progressNum + 1000;
+                if(currentProgressTime != null){
+                    currentProgressTime.setCurrentTime(progressNum);
+                }
                 if (progressNum > progressMaxNum) {
                     progressNum = progressMaxNum;
                 }
@@ -179,5 +201,7 @@ public class MusicBottomBar extends RelativeLayout {
 
         }
     };
+
+
 }
 

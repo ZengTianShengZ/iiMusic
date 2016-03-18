@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -20,12 +21,16 @@ import com.example.zts.appbase.view.AudioBar;
 import com.example.zts.appbase.view.MusicBottomBar;
 import com.example.zts.mv_demo3.MyApplication;
 import com.example.zts.mv_demo3.R;
+import com.example.zts.mv_demo3.activity.ShowLrcActivity;
 import com.example.zts.mv_demo3.adapter.MusicLocalAdapter;
 import com.example.zts.mv_demo3.domain.AudioMediaBean;
 import com.example.zts.mv_demo3.domain.OnlineMusicBean;
 import com.example.zts.mv_demo3.server.MusicServer;
+import com.example.zts.mv_demo3.tools.IteratorLrcFile;
+import com.example.zts.mv_demo3.tools.LrcProcess;
 import com.example.zts.mv_demo3.tools.OnlineMusicPlay;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -44,6 +49,7 @@ public class FragmentMusicLocal extends BaseFragment implements MusicBottomBar.L
     private int itemPosition ;
     private static final int mediaPauseImg = R.drawable.ic_media_pause;
     private static final int mediaPlayImg = R.drawable.ic_media_play;
+    private String lrcString;
     public static final String BroadCase_Action = "com.example.zts.mv_demo3.fragment.BroadCase_Action";
     public static final String BroadCast_Server = "com.example.zts.mv_demo3.server.BroadCase_Action";
 
@@ -53,6 +59,7 @@ public class FragmentMusicLocal extends BaseFragment implements MusicBottomBar.L
 
     private OnlineMusicPlay mOnlineMusicPlay;
     private FragmentMusicBroadCast mFragmentMusicBroadCast;
+    private IteratorLrcFile iteratorLrcFile;
 
     private Context context;
     private Intent intent;
@@ -137,6 +144,10 @@ public class FragmentMusicLocal extends BaseFragment implements MusicBottomBar.L
 
         mMusicLocalAdapter = new MusicLocalAdapter(context,listBean,R.layout.music_local_listiten);
         mlistView.setAdapter(mMusicLocalAdapter);
+
+        // 遍历歌词
+        iteratorLrcFile = new IteratorLrcFile(context);
+
     }
 
 
@@ -172,6 +183,10 @@ public class FragmentMusicLocal extends BaseFragment implements MusicBottomBar.L
                 musicBottomBar.setMusicTilteTv(listBean.get(position).getTilte());
                 musicBottomBar.setMusicArtistTv(listBean.get(position).getArtist());
 
+                // 得到 歌词路径
+                lrcString = iteratorLrcFile.getLrcPath(listBean.get(position).getTilte());
+
+
                 setAudioBarVisibility(position);
             }
         });
@@ -201,6 +216,14 @@ public class FragmentMusicLocal extends BaseFragment implements MusicBottomBar.L
 
     }
 
+
+    @Override
+    public void linOnClick() {
+
+        Intent intent = new Intent(getActivity(),ShowLrcActivity.class);
+        intent.putExtra("lrcString",lrcString);
+        startActivity(intent);
+    }
 
     @Override
     public void privateOnClick() {
@@ -239,7 +262,7 @@ public class FragmentMusicLocal extends BaseFragment implements MusicBottomBar.L
                 setAudioBarVisibility(itemPosition);
             }
         }
-        Log.i("click","pauseOnClick.."+MusicStatic );
+        Log.i("click", "pauseOnClick.." + MusicStatic);
 
     }
 

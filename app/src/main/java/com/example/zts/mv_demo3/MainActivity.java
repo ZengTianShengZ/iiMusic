@@ -2,6 +2,7 @@ package com.example.zts.mv_demo3;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,12 +20,15 @@ import android.widget.TextView;
 import com.example.zts.appbase.BaseFragment.BaseFragment;
 import com.example.zts.appbase.activity.BaseActivity;
 import com.example.zts.appbase.view.Topbar;
+import com.example.zts.mv_demo3.Broadcast.TelephoneCallBroadcast;
 import com.example.zts.mv_demo3.adapter.FragmentAdapter;
 import com.example.zts.mv_demo3.domain.OnlineMusicBean;
 import com.example.zts.mv_demo3.fragment.FragmentMusic;
 import com.example.zts.mv_demo3.fragment.FragmentMusicOnline;
 import com.example.zts.mv_demo3.fragment.FragmentTool;
 import com.example.zts.mv_demo3.fragment.FragmentVideo;
+import com.example.zts.mv_demo3.server.MusicServer;
+import com.example.zts.mv_demo3.tools.IteratorLrcFile;
 import com.example.zts.mv_demo3.tools.ViewAnimationShow;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.squareup.picasso.Picasso;
@@ -205,7 +209,9 @@ public class MainActivity extends BaseActivity implements Topbar.TopbarLeftClick
     @Override
     protected void onDestroy() {
             super.onDestroy();//5
-        Log.i("activitylive", "onDestroy");
+        Log.i("bugDestory", "stopService");
+        Intent intent = new Intent(context, MusicServer.class);
+        stopService(intent);
     }
 
     @TargetApi(Build.VERSION_CODES.M)
