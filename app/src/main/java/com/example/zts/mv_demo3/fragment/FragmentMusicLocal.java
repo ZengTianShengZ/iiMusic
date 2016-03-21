@@ -185,7 +185,8 @@ public class FragmentMusicLocal extends BaseFragment implements MusicBottomBar.L
 
                 // 得到 歌词路径
                 lrcString = iteratorLrcFile.getLrcPath(listBean.get(position).getTilte());
-
+                Log.i("lrcString",".."+lrcString);
+                //storage/emulated/0/Music/Lyric/Loco & Mamamoo - 이 노래.lrcLoco & Mamamoo - 이 노래.lrc
 
                 setAudioBarVisibility(position);
             }

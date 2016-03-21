@@ -14,6 +14,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.util.Log;
 
 import com.example.zts.mv_demo3.domain.LrcContent;
 
@@ -102,7 +103,7 @@ public class LrcView extends android.widget.TextView {
                 tempY = tempY + textHeight;
                 canvas.drawText(mLrcList.get(i).getLrcStr(), width / 2, tempY, notCurrentPaint);
             }*/
-            if(String.valueOf(progressNum)!= null){
+            if(lrcMap.get(String.valueOf(progressNum))!= null){
 
                 canvas.drawText(lrcMap.get(String.valueOf(progressNum)), width / 2, height / 2, currentPaint);
 
@@ -130,6 +131,7 @@ public class LrcView extends android.widget.TextView {
 
     public void setLrcMap(Map lrcMap) {
         this.lrcMap = lrcMap;
+        Log.i("lrcString", "..size" + lrcMap.size());
     }
     public void setmLrcList(List<LrcContent> mLrcList) {
         this.mLrcList = mLrcList;

@@ -57,10 +57,15 @@ public class IteratorLrcFile {
 
     public String getLrcPath(String songName){
 
-        for (String s : LrcPath){
-            if(s.endsWith(songName+".lrc"));
-            return s;
+        for(int i = 0;i<LrcPath.size();i++){
+            Log.i("songName","."+songName+".."+LrcPath.get(i));
+            if(LrcPath.get(i).endsWith(songName + ".lrc"));{
+
+                return LrcPath.get(17);
+
+            }
         }
+
         return null;
     }
 }
