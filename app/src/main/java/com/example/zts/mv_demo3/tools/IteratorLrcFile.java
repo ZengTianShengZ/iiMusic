@@ -42,9 +42,10 @@ public class IteratorLrcFile {
                         }else{
 
                             if((f.getName()).endsWith(".lrc")){
-                                LrcPath.add(f.getAbsolutePath() + f.getName());
 
-                                Log.i("LrcPath", "//" + f.getAbsolutePath()+f.getName());
+                                LrcPath.add(f.getPath());
+
+                                Log.i("LrcPath", "//" + f.getPath());
                                 //storage/emulated/0/ttpod/lyric/弗雷德 - 因为爱情 (法语版).lrc弗雷德 - 因为爱情 (法语版).lrc
                             }
                         }
@@ -61,7 +62,7 @@ public class IteratorLrcFile {
             Log.i("songName","."+songName+".."+LrcPath.get(i));
             if(LrcPath.get(i).endsWith(songName + ".lrc"));{
 
-                return LrcPath.get(17);
+                return LrcPath.get(15);
 
             }
         }

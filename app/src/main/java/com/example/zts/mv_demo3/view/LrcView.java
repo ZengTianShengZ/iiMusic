@@ -30,7 +30,7 @@ public class LrcView extends android.widget.TextView {
     private Paint currentPaint; //当前画笔对象
     private Paint notCurrentPaint;  //非当前画笔对象
     private float textHeight = 25;  //文本高度
-    private float textSize = 18;        //文本大小
+    private float textSize = 30;        //文本大小
     private int progressNum = 0;      //list集合下标
 
 
@@ -79,7 +79,7 @@ public class LrcView extends android.widget.TextView {
         currentPaint.setColor(Color.argb(210, 251, 248, 29));
         notCurrentPaint.setColor(Color.argb(140, 255, 255, 255));
 
-        currentPaint.setTextSize(24);
+        currentPaint.setTextSize(40);
         currentPaint.setTypeface(Typeface.SERIF);
 
         notCurrentPaint.setTextSize(textSize);
@@ -108,6 +108,17 @@ public class LrcView extends android.widget.TextView {
                 canvas.drawText(lrcMap.get(String.valueOf(progressNum)), width / 2, height / 2, currentPaint);
 
             }
+            float tempY = height / 2;
+            for(int i=0;i<6;i++){
+                if(progressNum -- != 0){
+                    if(lrcMap.get(String.valueOf(progressNum))!= null){
+                        tempY = tempY - textHeight;
+                        canvas.drawText(lrcMap.get(String.valueOf(progressNum)), width / 2, tempY, notCurrentPaint);
+
+                    }
+                }
+
+            }
         } catch (Exception e) {
             setText("...木有歌词文件，赶紧去下载...");
         }
@@ -126,7 +137,7 @@ public class LrcView extends android.widget.TextView {
 
     public void setIndex(int progressNum) {
         this.progressNum = progressNum;
-        invalidate();
+        postInvalidate();
     }
 
     public void setLrcMap(Map lrcMap) {

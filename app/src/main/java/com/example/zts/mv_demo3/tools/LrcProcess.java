@@ -18,6 +18,34 @@ import java.util.Map;
 public class LrcProcess {
     private Map<String, String> lrcMap = new HashMap<String, String>();
 
+    public String readLrcString(String path){
+        StringBuilder stringBuilder = new StringBuilder();
+        Log.i("readLrcString", "..0..");
+        File f = new File(path);
+        Log.i("readLrcString", "..1..");
+        try {
+            //创建一个文件输入流对象
+            Log.i("readLrcString", "..2..");
+            FileInputStream fis = new FileInputStream(f);
+            InputStreamReader isr = new InputStreamReader(fis, GetCharset(f));
+            BufferedReader br = new BufferedReader(isr);
+            String s = "";
+            Log.i("readLrcString", "..3..");
+            while ((s = br.readLine()) != null) {
+                stringBuilder.append(s);
+            }
+        }catch (FileNotFoundException e) {
+            Log.i("readLrcString", "..FileNotFoundException..");
+            e.printStackTrace();
+            stringBuilder.append("木有歌词文件，赶紧去下载！...");
+
+        }catch (IOException e) {
+            Log.i("readLrcString", "..IOException..");
+            e.printStackTrace();
+            stringBuilder.append("木有读取到歌词哦！");
+        }
+        return stringBuilder.toString();
+    }
     /**
      * 读取歌词
      *
@@ -25,7 +53,6 @@ public class LrcProcess {
      * @return
      */
     public Map readLRC(String path) {
-        Log.i("lrcMap","..path.."+path);
         lrcMap.clear();
         //定义一个StringBuilder对象，用来存放歌词内容
         StringBuilder stringBuilder = new StringBuilder();
@@ -37,31 +64,15 @@ public class LrcProcess {
             InputStreamReader isr = new InputStreamReader(fis, GetCharset(f));
             BufferedReader br = new BufferedReader(isr);
             String s = "";
-            Log.i("lrcMap","..gbk..");
             while ((s = br.readLine()) != null) {
-                Log.i("lrcMap","..s.."+s);
                 //替换字符
                 s = s.replace("[", "");
                 s = s.replace("]", "@");
-
                 //分离“@”字符
                 String splitLrcData[] = s.split("@");
-                Log.i("lrcMap","..splitLrcData.."+splitLrcData.length);
                 if(splitLrcData.length > 1) {
-       /*             mLrcContent.setLrcStr(splitLrcData[1]);
-
-                    //处理歌词取得歌曲的时间
-                    int lrcTime = time2Str(splitLrcData[0]);
-
-                    mLrcContent.setLrcTime(lrcTime);
-
-                    //添加进列表数组
-                    lrcList.add(mLrcContent);
-
-                    //新创建歌词内容对象
-                    mLrcContent = new LrcContent();*/
                     lrcMap.put(String.valueOf(time2Str(splitLrcData[0])),splitLrcData[1]);
-                    Log.i("lrcMap","..lrcMap.."+splitLrcData[1]);
+                    Log.i("lrcMap","..time:::"+String.valueOf(time2Str(splitLrcData[0]))+"gechi:::"+splitLrcData[1]);
                 }
             }
         } catch (FileNotFoundException e) {

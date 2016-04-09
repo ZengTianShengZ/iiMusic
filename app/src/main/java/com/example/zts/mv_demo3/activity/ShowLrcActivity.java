@@ -1,10 +1,12 @@
 package com.example.zts.mv_demo3.activity;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.zts.appbase.activity.BaseActivity;
 import com.example.zts.appbase.view.MusicBottomBar;
 import com.example.zts.mv_demo3.R;
+import com.example.zts.mv_demo3.fragment.FragmentMusic;
 import com.example.zts.mv_demo3.tools.LrcProcess;
 import com.example.zts.mv_demo3.view.LrcView;
 
@@ -15,6 +17,7 @@ public class ShowLrcActivity extends BaseActivity implements MusicBottomBar.Curr
 
     private LrcView lrcView;
     private LrcProcess lrcProcess;
+    private MusicBottomBar musicBottomBar;
     @Override
     public int getActivityLayout() {
         return R.layout.activity_show_lrc;
@@ -23,6 +26,7 @@ public class ShowLrcActivity extends BaseActivity implements MusicBottomBar.Curr
     @Override
     public void initView(Context context) {
         lrcView = (LrcView) findViewById(R.id.lrcShowView);
+        musicBottomBar = FragmentMusic.getMusicBottomBar1();
     }
 
     @Override
@@ -30,7 +34,9 @@ public class ShowLrcActivity extends BaseActivity implements MusicBottomBar.Curr
 
         String lrcString =  getIntent().getStringExtra("lrcString");
         lrcProcess = new LrcProcess();
+        musicBottomBar.setCurrentProgressTime(this);
 
+        //lrcView.setText(lrcProcess.readLrcString(lrcString));
         lrcView.setLrcMap(lrcProcess.readLRC(lrcString));
     }
 
@@ -42,6 +48,7 @@ public class ShowLrcActivity extends BaseActivity implements MusicBottomBar.Curr
     @Override
     public void setCurrentTime(int second) {
 
-        lrcView.setIndex(second);
+        Log.i("second","::"+second);
+        lrcView.setIndex(second/1000);
     }
 }

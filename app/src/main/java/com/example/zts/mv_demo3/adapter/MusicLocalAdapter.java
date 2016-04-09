@@ -34,7 +34,7 @@ public class MusicLocalAdapter extends CommonAdapter<AudioMediaBean>{
        // helper.
        // audioBar.setTag(position);
       //  helper.getConvertView().findViewById(R.id.list_item_AudioBar).setTag(position);
-        helper.setCustomView(R.id.list_item_AudioBar,position);
+     //   helper.setCustomView(R.id.list_item_AudioBar,position);
         helper.setText(R.id.list_item_num,""+position);
         helper.setText(R.id.list_item_songName,item.getTilte());
         helper.setText(R.id.list_item_singerName,item.getArtist());
