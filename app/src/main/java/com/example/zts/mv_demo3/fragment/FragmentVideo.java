@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.example.zts.appbase.BaseFragment.BaseFragment;
 import com.example.zts.mv_demo3.R;
@@ -17,11 +18,13 @@ import java.util.ArrayList;
 /**
  * Created by ZTS on 2015/12/30.
  */
-public class FragmentVideo extends BaseFragment {
+public class FragmentVideo extends BaseFragment implements View.OnClickListener{
 
     private ViewPager video_viewpager;
     private ArrayList<Fragment> fragments;
     private View poinLine;
+    private TextView v_local_tv;
+    private TextView v_online_tv;
 
     private float screenWidth;
 
@@ -41,6 +44,13 @@ public class FragmentVideo extends BaseFragment {
         fragments.add(new FragmentVideoOnline());
         FragmentAdapter fragmentAdapter = new FragmentAdapter(getFragmentManager(),fragments);
         video_viewpager.setAdapter(fragmentAdapter);
+
+        v_local_tv = (TextView) rootview.findViewById(R.id.v_local_tv);
+        v_online_tv = (TextView) rootview.findViewById(R.id.v_online_tv);
+
+        v_local_tv.setOnClickListener(this);
+        v_online_tv.setOnClickListener(this);
+
     }
 
     @Override
@@ -61,8 +71,8 @@ public class FragmentVideo extends BaseFragment {
         video_viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(position<0.9999f)
-                    poinLine.setTranslationX(positionOffsetPixels / fragments.size()+screenWidth);
+                if (position < 0.9999f)
+                    poinLine.setTranslationX(positionOffsetPixels / fragments.size() + screenWidth);
             }
 
             @Override
@@ -76,4 +86,19 @@ public class FragmentVideo extends BaseFragment {
             }
         });
     }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.v_local_tv:
+                video_viewpager.setCurrentItem(0);
+                break;
+
+            case R.id.v_online_tv:
+                video_viewpager.setCurrentItem(1);
+                break;
+
+        }
+    }
+
+
 }

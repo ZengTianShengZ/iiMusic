@@ -44,5 +44,6 @@
         audiobar:updateDuration="400"
         audiobar:audioBarColor="#45ef8f"
         audiobar:barCount="5"
+        android:visibility="gone"
      />
 </RelativeLayout>

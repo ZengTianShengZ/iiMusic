@@ -48,6 +48,7 @@ public abstract class BaseActivity extends FragmentActivity implements ToastProx
          initData() ;
          initEvent() ;
 
+
     }
 
 

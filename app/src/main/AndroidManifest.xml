@@ -13,7 +13,7 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/iimusic"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -36,7 +36,9 @@
         <activity android:name=".activity.ShowLrcActivity">
 
         </activity>
+        <activity android:name=".activity.ShowNotLrcActivity">
 
+        </activity>
         <service android:name=".server.MusicServer">
             <intent-filter>
                 <action android:name="com.example.zts.mv_demo3.server.MusicServer"></action>

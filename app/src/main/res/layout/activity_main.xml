@@ -35,6 +35,12 @@
 
         <include layout="@layout/topbar"
             android:id="@+id/cccct"
+
+            >
+        </include>
+        <include layout="@layout/common_topbar"
+            android:id="@+id/zzz"
+
             >
         </include>
 

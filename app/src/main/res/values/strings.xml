@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MV_demo3</string>
+    <string name="app_name">iiMusic</string>
 
     <string-array name="array_time_item">
         <item>"不开启"</item>

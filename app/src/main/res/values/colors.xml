@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#412E28</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorAllTheme">#412E28</color>
-
+    <color name="color_gray_tv">#807878</color>
+    <color name="color_white_tv">#FFFFFF</color>
 
 </resources>

@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.zts.appbase.BaseFragment.BaseFragment;
@@ -40,11 +41,21 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 
 @EActivity
-public class MainActivity extends BaseActivity implements Topbar.TopbarLeftClickListener,FragmentMusicOnline.ShowOverlayTopbar {
+public class MainActivity extends BaseActivity implements Topbar.TopbarLeftClickListener,FragmentMusicOnline.ShowOverlayTopbar ,View.OnClickListener {
 
     // ViewById 有两种写法，一种是需要R.id，
     @ViewById(R.id.mtopbar)
     Topbar mtopbar;
+
+    @ViewById(R.id.common_topbar_menu)
+    ImageView common_topbar_menu;
+
+    @ViewById(R.id.common_topbar_musicTv)
+    TextView common_topbar_musicTv;
+
+    @ViewById(R.id.common_topbar_videoTv)
+    TextView common_topbar_videoTv;
+
     @ViewById(R.id.relativeLayout_overlay)
     RelativeLayout overlayRel;
 
@@ -109,6 +120,13 @@ public class MainActivity extends BaseActivity implements Topbar.TopbarLeftClick
         FragmentAdapter fragmentAdapter = new FragmentAdapter(mFragmentManager, fragments);
 
         viewPager.setAdapter(fragmentAdapter);
+
+        common_topbar_musicTv.setTextColor(getResources().getColor(R.color.color_white_tv));
+
+
+        common_topbar_menu.setOnClickListener(this);
+        common_topbar_musicTv.setOnClickListener(this);
+        common_topbar_videoTv.setOnClickListener(this);
         //...this...com.example.zts.mv_demo3.MainActivity_@528299fc ：this 就是包名+类名
 
 
@@ -231,16 +249,17 @@ public class MainActivity extends BaseActivity implements Topbar.TopbarLeftClick
                 }
                 drawerLayoutShow = false;
             }
-
             @Override
             public void onPageSelected(int position) {
                 mainPageSelectedPos = position;
                 switch (position) {
                     case 0:
-                        mtopbar.setTitle("音乐");
+                        common_topbar_videoTv.setTextColor(getResources().getColor(R.color.color_gray_tv));
+                        common_topbar_musicTv.setTextColor(getResources().getColor(R.color.color_white_tv));
                         break;
                     case 1:
-                        mtopbar.setTitle("视频");
+                        common_topbar_videoTv.setTextColor(getResources().getColor(R.color.color_white_tv));
+                        common_topbar_musicTv.setTextColor(getResources().getColor(R.color.color_gray_tv));
                         break;
                     case 2:
                         mtopbar.setTitle("工具");
@@ -272,6 +291,9 @@ public class MainActivity extends BaseActivity implements Topbar.TopbarLeftClick
                 return false;
             }
         });
+
+
+
     }
 
     private void testTost() {
@@ -296,6 +318,29 @@ public class MainActivity extends BaseActivity implements Topbar.TopbarLeftClick
         viewAnimationShow.animateOpenTopProfileDetails(300);
         viewAnimationShow.animateOpenProfileDetails(400);
     }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.common_topbar_menu:
+                drawerLayout.openDrawer(Gravity.LEFT);
+                break;
+
+            case R.id.common_topbar_musicTv:
+                common_topbar_musicTv.setTextColor(getResources().getColor(R.color.color_white_tv));
+                common_topbar_videoTv.setTextColor(getResources().getColor(R.color.color_gray_tv));
+                viewPager.setCurrentItem(0);
+                break;
+
+            case R.id.common_topbar_videoTv:
+                common_topbar_videoTv.setTextColor(getResources().getColor(R.color.color_white_tv));
+                common_topbar_musicTv.setTextColor(getResources().getColor(R.color.color_gray_tv));
+                viewPager.setCurrentItem(1);
+                break;
+        }
+    }
+
 }
 /**
  * 问题有点严重了 针对viewAnimationShow的问题

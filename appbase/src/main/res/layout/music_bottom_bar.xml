@@ -17,18 +17,17 @@
         android:id="@+id/bottom_music_cImg"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/lrh"
+        android:src="@drawable/music_bg"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"
-        appc:border_width="2dp"
-        appc:border_color="#9e9592"/>
+        />
 
     <com.example.zts.appbase.view.RoundProgressBar
         android:id="@+id/bottom_roundProgressBar"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/icon"
+        android:src="@drawable/music_bg"
         android:layout_centerVertical="true"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"

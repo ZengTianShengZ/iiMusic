@@ -1,5 +1,6 @@
 package com.example.zts.mv_demo3.fragment;
 
+import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import com.example.zts.appbase.view.MusicBottomBar;
 import com.example.zts.mv_demo3.MyApplication;
 import com.example.zts.mv_demo3.R;
 import com.example.zts.mv_demo3.activity.ShowLrcActivity;
+import com.example.zts.mv_demo3.activity.ShowNotLrcActivity;
 import com.example.zts.mv_demo3.adapter.MusicLocalAdapter;
 import com.example.zts.mv_demo3.domain.AudioMediaBean;
 import com.example.zts.mv_demo3.domain.OnlineMusicBean;
@@ -29,6 +31,7 @@ import com.example.zts.mv_demo3.server.MusicServer;
 import com.example.zts.mv_demo3.tools.IteratorLrcFile;
 import com.example.zts.mv_demo3.tools.LrcProcess;
 import com.example.zts.mv_demo3.tools.OnlineMusicPlay;
+import com.example.zts.mv_demo3.tools.ScannerData;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +67,6 @@ public class FragmentMusicLocal extends BaseFragment implements MusicBottomBar.L
     private Context context;
     private Intent intent;
     private AudioMediaBean amBean ;
-
     @Override
     public int getFragmentLayout() {
         return R.layout.fragment_music_local;
@@ -92,58 +94,27 @@ public class FragmentMusicLocal extends BaseFragment implements MusicBottomBar.L
         mOnlineMusicPlay.replayMediaPlayer();
 
         amBean = AudioMediaBean.getmAudioMediaBean();
-        Cursor cursor = getContext().getContentResolver().query(
-                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,null,MediaStore.Audio.Media.DURATION+">?",new String[]{"180000"},
-                MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
 
-        if(cursor != null){
-
-            int id;
-            String tilte;
-            String album;
-            String artist;
-            String url;
-            int duration;
-            int size;
-
-            cursor.moveToFirst();
-            //歌曲ID：MediaStore.Audio.Media._ID
-            int Media_id = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media._ID);
-            //歌曲的名称 ：MediaStore.Audio.Media.TITLE
-            int Media_title =  cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.TITLE);
-            //歌曲的专辑名：MediaStore.Audio.Media.ALBUM
-            int Media_album = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM);
-            //歌曲的歌手名： MediaStore.Audio.Media.ARTIST
-            int Media_artist = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ARTIST);
-            //歌曲文件的路径 ：MediaStore.Audio.Media.DATA
-            int Media_url = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA );
-            //歌曲的总播放时长 ：MediaStore.Audio.Media.DURATION
-            int Media_duration = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION);
-            //歌曲文件的大小 ：MediaStore.Audio.Media.SIZE
-            int Media_size = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.SIZE);
-
-            do {
-                id = cursor.getInt(Media_id);
-                tilte = cursor.getString(Media_title);
-                album = cursor.getString(Media_album);
-                artist = cursor.getString(Media_artist);
-                url = cursor.getString(Media_url);
-                duration = cursor.getInt(Media_duration);
-                size = cursor.getInt(Media_size);
-
-                amBean = new AudioMediaBean(id,tilte,album,artist,url,duration,size);
-                listBean.add(amBean);
-
-                stringUrlList.add(url);
-
-            }while (cursor.moveToNext());
-            amBean.setStringUrlList(stringUrlList);
-            cursor.close();
-        }
-
-
+        ScannerData.scannerMusicData(context.getApplicationContext(), amBean, listBean, stringUrlList);
         mMusicLocalAdapter = new MusicLocalAdapter(context,listBean,R.layout.music_local_listiten);
         mlistView.setAdapter(mMusicLocalAdapter);
+
+/*        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+            }
+        }).start();*/
+
+
 
         // 遍历歌词
         iteratorLrcFile = new IteratorLrcFile(context);
@@ -217,11 +188,19 @@ public class FragmentMusicLocal extends BaseFragment implements MusicBottomBar.L
 
     }
 
+    @Override
+    public void onDestroy() {
+
+        getContext().unregisterReceiver(mFragmentMusicBroadCast);
+
+        super.onDestroy();
+
+    }
 
     @Override
     public void linOnClick() {
 
-        Intent intent = new Intent(getActivity(),ShowLrcActivity.class);
+        Intent intent = new Intent(getActivity(),ShowNotLrcActivity.class);
         intent.putExtra("lrcString",lrcString);
         startActivity(intent);
     }
